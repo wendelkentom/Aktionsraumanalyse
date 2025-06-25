@@ -41,7 +41,7 @@
     .einleitung {
       background:  #ddf5e4;
       display: flex;
-      align-items: center;
+      
       justify-content: center;
       flex-direction: column;
       max-width: 90%;
@@ -69,7 +69,12 @@
       grid-template-columns: 2fr 1fr;
       gap: 2rem;
       padding: 2rem;
+      max-width: 90%;
+      margin: 0 auto;
+      box-sizing: border-box;
     }
+
+
 
     .map-area {
       position: sticky;
@@ -83,6 +88,7 @@
       border-radius: 1rem;
       box-shadow: 0 2px 8px rgba(0,0,0,0.1);
     }
+
 
     .steps-area .step {
       background: #ffffff61;
@@ -148,12 +154,17 @@
 
 
  .super-step2 {
-  max-width: 90%;
-  margin: 4rem auto;
+  margin: 0rem auto;
+  
   padding: 1rem;
   background:  #ddf5e4;
   border-radius: 1rem;
   box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+  width: 93%;
+  max-width: 100%; /* Maximale Breite auf 100% beschränken */
+  box-sizing: border-box; /* Padding und Border zur Breite hinzufügen */
+  margin-bottom: 4rem;
+  
 }
 
 .super-step2 h2 {
@@ -172,6 +183,7 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 2rem;
+  
 }
 
 
@@ -187,6 +199,7 @@
   grid-template-columns: repeat(3, 1fr);
   gap: 2rem;
   margin: 2rem 0;
+  
 }
 
 .substep {
@@ -238,11 +251,14 @@
   scroll-snap-type: x mandatory;
   -webkit-overflow-scrolling: touch; /* für flüssiges Scrollen auf iOS */
   padding: 0rem;
+  
 }
 
 .carousel-wrapper {
   display: flex;
   gap: 1rem;
+  
+
 }
 
 .carousel-item {
@@ -298,6 +314,58 @@
 .go_along-text-farbe 
 {font-size: 1.1rem;
   color: #1e3a8a;}
+
+
+
+ .teilnahme {
+      background:  #ddf5e4;
+      display: flex;
+      
+      justify-content: center;
+      flex-direction: column;
+      max-width: 90%;
+      margin: 0rem auto;
+      padding: 2rem;
+      border-radius: 1rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    .teilnahme h2 {
+      font-size: 1.75rem;
+      color: #1e3a8a;
+      margin-bottom: 0rem;
+    }
+
+    .teilnahme p {
+      font-size: 1.1rem;
+      color: #374151;;
+      line-height: 2;
+    }
+
+
+    .interesse {
+      background:  #ddf5e4;
+      display: flex;
+      flex-direction: column;
+      max-width: 90%;
+      margin: 0rem auto;
+      margin-bottom: 8rem;
+      padding: 2rem;
+      border-radius: 1rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    .interesse h2 {
+      font-size: 1.75rem;
+      color: #1e3a8a;
+      margin-bottom: 0rem;
+    }
+
+    .interesse p {
+      font-size: 1.1rem;
+      color: #374151;;
+      line-height: 2;
+    }
     
   </style>
 </head>
@@ -309,7 +377,7 @@
 
   <div class="einleitung">
     <h2>Helfen Sie mit die Stadt zu gestalten</h2>
-    <p>Im Laufe ihres Lebens nimmt die Mobilität Vieler ab. Aktivitäten werden kräftezehrender und Hürden im Alltag bahnen sich auf. 
+    <p>Im Laufe des Lebens nimmt die Mobilität Vieler ab. Aktivitäten werden kräftezehrender und Hürden im Alltag bahnen sich auf. 
     Dies führt zu veränderten Bedürfnissen und Ansprüchen an die umgebende Infrastruktur. Um die soziale Teilhabe älterer Menschen 
     zu sichern und zu verbessern, suchen wir Freiwillige, die ihre Perspektiven und Erfahrungen auf die Mobilität mit uns teilen. 
     Ihre anonyme Teilnahme kann dabei helfen, in zukünftigen Planungen die Bedürfnisse und Anforderungen älterer Menschen zu berücksichtigen.
@@ -369,65 +437,69 @@
 
 <div>
 <section class="step super-step2" data-step="research">
-  <h2>Ziel der Forschung </h2>
-    
-  <p> Im Zuge des Demographischen Wandels sehen wir eine verstärkte Relevanz für die 
-      Gewinnung eines Verständnisses alltäglicher Raumnutzung von Senior*innen. Die 
-      Raumaneigung älterer Menschen ist von zentraler Bedeutung für ihre Teilhabe am 
-      sozialen Leben. Für eine gelingende Stadtentwicklung erachten wir es als Notwendigkeit, 
-      das Wissen über die Raumwahrnehmung älterer Menschen zu verbessern.
-      
+  <h2>Forschungsanliegen </h2>
 
-
-    <p>Die Teilhabechance in der Stadt variiert stark nach der Bewegungsfähigkeit ihrer Bewohner. 
+    <p>
       Menschen mit unterschiedlichen Mobilitätsniveaus nutzen ihre Räume auf unterschiedliche Weise. 
-      In den folgenden Abbildungen wird deutlich, wie Menschen nach ihrer Bewegungsfähigkeit ihren 
-      Raum anders nutzen können.
+      Wie die Teilhabechancen in der Stadt nach der Bewegungsfähigkeit ihrer Bewohner varrieren, wird in den folgenden Abbildungen deutlich. 
       </p>
 
 
 <section class="image-step-carousel">
   <div class="carousel-wrapper">
+
+    <div class="carousel-item">
+      <img src="Mobi_Bus.jpg" alt="Beobachtung 5"  width="500" height="300" />
+      <div class="step-text">
+        <h2>Mobilitätschancen</h2>
+        <p>Viele Senioren werden hier als Mobilitätszugang den Bus nutzen. Für in der Bewegung Uneingeschränkte 
+            ergibt sich hier die zusätzliche Möglichkeit Leihräder zu nutzen.
+        </p>
+      </div>
+    </div>
+
+
+
     <div class="carousel-item">
       <img src="Doener_Apotheke.jpg" alt="Ein Bild von mir"  width="500" height="300"/>
       <div class="step-text">
-        <h2>Beispielhafte Beobachtung 1</h2>
-        <p>Diese Einfahrt verdeutlicht...</p>
+        <h2>Nutzungsmöglichkeiten</h2>
+        <p>Während die Apotheke ebenerdig gelegen ist, ist der Döner-Imbiss nur über eine Treppe zu erreichen. 
+            Die Möglichkeit, draußen zu sitzen, ist für hitzeempfindliche Personen möglicherweise nicht gegeben. </p>
       </div>
     </div>
 
     <div class="carousel-item">
       <img src="Boardstein_Kopfsteinflaster.JPG" alt="Beobachtung 2"  width="500" height="300" />
       <div class="step-text">
-        <h2>Beispielhafte Beobachtung 2</h2>
-        <p>Beschreibung zur zweiten Beobachtung.</p>
+        <h2>Erhöhte Bordsteine und Kopfsteinflaster</h2>
+        <p>Hohe Bordsteine, Kopfsteinflaster und unebene Wege können für Menschen mit eingeschränker Mobilität Barrieren darstellen.
+        </p>
       </div>
     </div>
+
+
 
     <div class="carousel-item">
       <img src="beschattete_Baenke.JPG" alt="Beobachtung 3"  width="500" height="300"/>
       <div class="step-text">
-        <h2>Beispielhafte Beobachtung 3</h2>
-        <p>Beschreibung zur zweiten Beobachtung.</p>
+        <h2>Schattige Bänke</h2>
+        <p>Durch Bänke können tägliche Routen gestaffelt werden. Aktionsräume lassen sich dadurch erweitern. 
+            Hitzeempfindliche Personen bevorzugen möglicherweise Routen, die von Grün begleitet werden.</p>
       </div>
     </div>
 
-    <div class="carousel-item">
-      <img src="Stolpperfalle.JPG" alt="Beobachtung 4" width="500" height="300" />
-      <div class="step-text">
-        <h2>Beispielhafte Beobachtung 4</h2>
-        <p>Beschreibung zur zweiten Beobachtung.</p>
-      </div>
-    </div>
 
-    <div class="carousel-item">
-      <img src="Mobi_Bus.jpg" alt="Beobachtung 5"  width="500" height="300" />
-      <div class="step-text">
-        <h2>Beispielhafte Beobachtung 5</h2>
-        <p>Beschreibung zur zweiten Beobachtung.</p>
-      </div>
-    </div>
+    
     </section>
+
+    <p> Im Zuge des Demographischen Wandels sehen wir eine verstärkte Relevanz für die 
+      Gewinnung eines Verständnisses alltäglicher Raumnutzung von Senior*innen. Die 
+      Raumaneigung älterer Menschen ist von zentraler Bedeutung für ihre Teilhabe am 
+      sozialen Leben. Für eine gelingende Stadtentwicklung erachten wir es als Notwendigkeit, 
+      das Wissen über die Raumwahrnehmung älterer Menschen zu verbessern.
+      
+
 
 <p> Folgende Forschungsfragen möchten wir durch unsere Untersuchung beantworten:
         <p style="margin-top: -1%;"> • Wie gestalten Senior*innen ihren alltäglichen Aktionsraum in der Stadt – und welche 
@@ -437,6 +509,20 @@
     
     <!-- Mehr Items ... -->
   </div>
+
+  <div class="teilnahme">
+    <h2>Wie Sie aktiver Teil der Untersuchung werden</h2>
+    <p>Bei der Teilnahme an unserer Untersuchung werden Ihre räumlichen Aktivitäten innerhalb einer Woche untersucht. 
+        Dabei möchten wir Einblicke in Ihr räumliches Alltagsverhalten gewinnen. Die Ergebnisse werden anonymisiert. 
+        Im Folgenden stellen wir Ihnen unsere Methoden vor, die Sie innerhalb einer Woche begleiten werden. Durch die 
+        Verwendung mehrerer Forschungsmethoden soll die Qualität unserer gemeinsamen Forschung verbessert werden. 
+        Während der Methoden Mental Mapping und Go-Along werden Sie durch freundliche Mitglieder unseres Teams begleitet. 
+        Die Methode des GPS-Trackings sieht eine Einweisung vor, die etwa eine Stunde dauert. Die Teilnahme sieht eine 
+        Aufwandsentschädigung vor, doch diese sollte nicht die Motivation zur Teilnahme sein.
+</p>
+  </div>
+
+
 </section>
 
   <div class="grid-layout">
@@ -466,7 +552,17 @@
           Direkt vor Ort erzählen Sie uns, was Sie dort denken, fühlen oder erlebt haben – 
           und wir hören aufmerksam zu!</p>
       </section>
-    </div>
+    </div>    
+  </div>
+
+  <div class="interesse">
+    <h2>Haben wir Ihr Interesse geweckt?</h2>
+    <p>Sind Sie an einer Teilnahme interessiert oder haben Sie Fragen zu diesem Projekt, melden Sie sich bei uns unter:
+        <p style="margin-top: -1%;"> • Tel: 0351...
+        <p style="margin-top: -1%;"> • E-Mail: Aktionsraumanalyse@tu-dresden.de
+</p>
+
+
   </div>
 
  
