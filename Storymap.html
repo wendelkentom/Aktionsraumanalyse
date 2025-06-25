@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <title>Aktionsraumanalyse Dresden</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      scroll-behavior: smooth;
+       background: linear-gradient(to bottom right, #cbd5e1, #ddf5e4);
+    }
+
+    .intro {
+      width: 100%;
+      height: 100vh;
+      background: linear-gradient(to bottom right, #cbd5e1, #ddf5e4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      text-align: center;
+    }
+
+    .intro h1 {
+      font-size: 3rem;
+      color: #1e3a8a;
+      margin-bottom: 1rem;
+    }
+
+    .intro p {
+      font-size: 2rem;
+      color: #374151;
+      max-width: 700px;
+    }
+
+
+
+    .einleitung {
+      background:  #ddf5e4;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      max-width: 90%;
+      margin: 4rem auto;
+      padding: 2rem;
+      border-radius: 1rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    .einleitung h2 {
+      font-size: 1.75rem;
+      color: #1e3a8a;
+      margin-bottom: 1rem;
+    }
+
+    .einleitung p {
+      font-size: 1.1rem;
+      color: #374151;;
+      line-height: 2;
+    }
+
+
+    .grid-layout {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 2rem;
+      padding: 2rem;
+    }
+
+    .map-area {
+      position: sticky;
+      top: 2rem;
+      height: 80vh;
+    }
+
+    #map {
+      width: 100%;
+      height: 100%;
+      border-radius: 1rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    .steps-area .step {
+      background: #ffffff61;
+      padding: 1.5rem;
+      margin-bottom: 4rem;
+      border-left: 5px solid transparent;
+      border-radius: 1rem;
+      transition: all 0.3s ease;
+    }
+
+    .steps-area .step.is-active {
+      background: #ffffff;
+      border-left-color: #1e3a8a;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    .step h2 { margin-top: 0; color: #1e3a8a;; }
+    .step p { color: #374151; font-size: 1.1rem; line-height: 2;}
+
+    
+
+    .image-full {
+      max-width: 75%;
+      margin: 2rem auto;
+      text-align: center;
+    }
+    .image-full img {
+      width: 100%;
+      border-radius: 20px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    .image-step-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr; /* Bild 2/3 – Text 1/3 */
+    gap: 2rem;
+    align-items: center;
+    max-width: 80%;
+    margin: 4rem auto;
+    padding: 2rem;
+    }
+    .image-step-grid img {
+  width: 100%;
+  height: auto;
+  border-radius: 1rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+
+  }
+  .image-step-grid .step-text {
+  background: #ffffffb3;
+  padding: 1.5rem;
+  border-radius: 1rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  color: #374151;
+  }
+  .image-step-grid .step-text h2 {
+  margin-top: 0;
+  color: #1e3a8a;
+  }
+  .image-step-grid .step-text p {
+  color: #374151; font-size: 1.1rem; line-height: 2;
+  }
+
+
+
+ .super-step2 {
+  max-width: 90%;
+  margin: 4rem auto;
+  padding: 1rem;
+  background:  #ddf5e4;
+  border-radius: 1rem;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+.super-step2 h2 {
+  font-size: 1.75rem;
+  color: #1e3a8a;
+}
+
+.super-step2 p {
+  color: #374151;
+  font-size: 1.1rem;
+  line-height: 2;
+}
+
+
+.three-column-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+}
+
+
+.substep img {
+  width: 100%;
+  height: auto;
+  border-radius: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.substep-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  margin: 2rem 0;
+}
+
+.substep {
+  background-color: #fdfdfd;
+  border-radius: 1rem;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+  display: flex;
+  flex-direction: column;
+}
+
+.substep img {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+}
+
+.substep .text {
+  padding: 1rem;
+  color: #374151;
+}
+
+.substep h3 {
+  margin-top: 0;
+  color: #1e3a8a;
+}
+
+.substep p {
+  color: #374151;
+  line-height: 2;
+  font-size: 1.1rem;
+
+}
+.superstep {
+  background-color: #e0f2fe; /* sanftes Hellblau z.B. */
+  margin: 4rem auto;
+  padding: 2rem;
+  background: #ddf5e4;
+  border-radius: 1rem;
+  max-width: 90%;
+
+}
+
+
+.image-step-carousel {
+  max-width: 90%;
+  margin: 0rem auto;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch; /* für flüssiges Scrollen auf iOS */
+  padding: 0rem;
+}
+
+.carousel-wrapper {
+  display: flex;
+  gap: 1rem;
+}
+
+.carousel-item {
+  flex: 0 0 600px; /* Breite eines Items */
+  scroll-snap-align: start;
+  border-radius: 1rem;
+  background: #f9fafb;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  display: flex;
+  gap: 1rem;
+  padding: 1rem;
+  align-items: center;
+}
+
+.carousel-item img {
+  width: 50%;
+  height: auto;
+  border-radius: 1rem;
+  object-fit: cover;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.carousel-item .step-text {
+  width: 50%;
+  color: #374151;
+}
+
+.carousel-item .step-text h2 {
+  color: #1e3a8a;
+  margin-top: 0;
+  font-size: 1.1rem;
+}
+
+.image-step-carousel img {
+  width: 300px;
+  height: 300px;
+  object-fit: cover; /* oder: contain */
+}
+
+.steps-area .step[data-step="gps"] {
+  margin-top: 15rem;
+  margin-bottom: 8rem;
+}
+.steps-area .step[data-step="mental"] {
+  margin-top: 8rem;
+  margin-bottom: 8rem;
+}
+.steps-area .step[data-step="goalong"] {
+  margin-top: 8rem;
+  margin-bottom: 20rem;
+}
+
+.go_along-text-farbe 
+{font-size: 1.1rem;
+  color: #1e3a8a;}
+    
+  </style>
+</head>
+<body>
+  <div class="intro">
+    <h1>Forschungsmethode Aktionsraumanalyse</h1>
+    <p>Aktionsräume in alternden Gesellschaften</p>
+  </div>
+
+  <div class="einleitung">
+    <h2>Helfen Sie mit die Stadt zu gestalten</h2>
+    <p>Im Laufe ihres Lebens nimmt die Mobilität Vieler ab. Aktivitäten werden kräftezehrender und Hürden im Alltag bahnen sich auf. 
+    Dies führt zu veränderten Bedürfnissen und Ansprüchen an die umgebende Infrastruktur. Um die soziale Teilhabe älterer Menschen 
+    zu sichern und zu verbessern, suchen wir Freiwillige, die ihre Perspektiven und Erfahrungen auf die Mobilität mit uns teilen. 
+    Ihre anonyme Teilnahme kann dabei helfen, in zukünftigen Planungen die Bedürfnisse und Anforderungen älterer Menschen zu berücksichtigen.
+    Eine geeignete Methode, um die sich verändernden Ansprüche an die Umgebung zu ermitteln, ist die Aktionsraumanalyse. Diese Methode 
+    ermöglicht es uns, gemeinsam mit Ihnen die Herausforderungen und Chancen im Alltag älterer Menschen zu identifizieren.
+    Wir möchten Ihnen im Folgenden die Aktionsraumanalyse näher bringen und erklären, wie Sie sich an dieser Studie beteiligen können.
+</p>
+  </div>
+
+  <section class="step superstep" data-step="research">
+  <h2>Analyse des Bewegungsverhaltens im Raum</h2>
+    <p>Wer macht was, wann, wo, wie oft, wie lange und warum? Mit diesen 
+      Fragen setzt sich die Aktionsraumanalyse auseinander. Durch die Erfassung der Aktionsräume können 
+      Einblicke in die Verhaltensweisen von Menschen gewonnen werden. Die 
+      gewonnenen Informationen können eine fundierte Grundlage bilden für 
+      Maßnahmen, welche die Lebensqualität von Menschen in verschiedenen Kontexten 
+      verbessern. Dabei kommt die Aktionsraumanalyse in mehreren Forschungszweigen 
+      zum Einsatz.</p>
+
+  <div class="substep-container">
+    <div class="substep">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/89/Bikecultureincopenhagen.jpg/640px-Bikecultureincopenhagen.jpg" alt="Verkehrsforschung">
+      <div class="text">
+        <h3>Verkehrsforschung</h3>
+        <p>Durch die Aktionsraumanalyse können Daten gesammelt werden, 
+          die für die Verkehrsplanung wichtig sind. Mit diesen Daten 
+          kann das Verhalten von Verkehrsteilnehmern analysieren und 
+          Strategien entwickeln werden, um den Verkehr zu reduzieren.</p>
+      </div>
+    </div>
+
+    <div class="substep">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d9/Public_Green_Space.jpg/640px-Public_Green_Space.jpg" alt="Gesundheitsforschung">
+      <div class="text">
+        <h3>Gesundheitsforschung</h3>
+        <p>In der Gesundheitsforschung können Aktionsraumanalysen verwendet 
+          werden, um herauszufinden, wie Menschen von Stressoren wie Lärm oder Schadstoffen 
+          betroffen sind und welchen Zugang sie zu Räumen haben, die für ihre 
+          Gesundheit wichtig sind.</p>
+      </div>
+    </div>
+
+    <div class="substep">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e2/Holc-chicago.jpg/640px-Holc-chicago.jpg" alt="Segregationsforschung">
+      <div class="text">
+        <h3>Segregationsforschung</h3>
+        <p>Die Aktionsraumanalyse kann helfen, herauszufinden, wie sich verschiedene 
+          Bevölkerungsgruppen in ihrer Nutzung von Räumen unterscheiden. Unterschiede 
+          in der räumlichen Verteilung von Gruppen können beispielsweise anhand des 
+          Einkommens oder der Herkunft untersucht werden. Dies kann dazu beitragen, 
+          Ungerechtigkeiten aufzudecken, wie die Benachteiligung von Minderheiten 
+          oder von Menschen mit niedrigem Einkommen.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div>
+<section class="step super-step2" data-step="research">
+  <h2>Ziel der Forschung </h2>
+    
+  <p> Im Zuge des Demographischen Wandels sehen wir eine verstärkte Relevanz für die 
+      Gewinnung eines Verständnisses alltäglicher Raumnutzung von Senior*innen. Die 
+      Raumaneigung älterer Menschen ist von zentraler Bedeutung für ihre Teilhabe am 
+      sozialen Leben. Für eine gelingende Stadtentwicklung erachten wir es als Notwendigkeit, 
+      das Wissen über die Raumwahrnehmung älterer Menschen zu verbessern.
+      
+
+
+    <p>Die Teilhabechance in der Stadt variiert stark nach der Bewegungsfähigkeit ihrer Bewohner. 
+      Menschen mit unterschiedlichen Mobilitätsniveaus nutzen ihre Räume auf unterschiedliche Weise. 
+      In den folgenden Abbildungen wird deutlich, wie Menschen nach ihrer Bewegungsfähigkeit ihren 
+      Raum anders nutzen können.
+      </p>
+
+
+<section class="image-step-carousel">
+  <div class="carousel-wrapper">
+    <div class="carousel-item">
+      <img src="Doener_Apotheke.jpg" alt="Ein Bild von mir"  width="500" height="300"/>
+      <div class="step-text">
+        <h2>Beispielhafte Beobachtung 1</h2>
+        <p>Diese Einfahrt verdeutlicht...</p>
+      </div>
+    </div>
+
+    <div class="carousel-item">
+      <img src="Boardstein_Kopfsteinflaster.JPG" alt="Beobachtung 2"  width="500" height="300" />
+      <div class="step-text">
+        <h2>Beispielhafte Beobachtung 2</h2>
+        <p>Beschreibung zur zweiten Beobachtung.</p>
+      </div>
+    </div>
+
+    <div class="carousel-item">
+      <img src="beschattete_Baenke.JPG" alt="Beobachtung 3"  width="500" height="300"/>
+      <div class="step-text">
+        <h2>Beispielhafte Beobachtung 3</h2>
+        <p>Beschreibung zur zweiten Beobachtung.</p>
+      </div>
+    </div>
+
+    <div class="carousel-item">
+      <img src="Stolpperfalle.JPG" alt="Beobachtung 4" width="500" height="300" />
+      <div class="step-text">
+        <h2>Beispielhafte Beobachtung 4</h2>
+        <p>Beschreibung zur zweiten Beobachtung.</p>
+      </div>
+    </div>
+
+    <div class="carousel-item">
+      <img src="Mobi_Bus.jpg" alt="Beobachtung 5"  width="500" height="300" />
+      <div class="step-text">
+        <h2>Beispielhafte Beobachtung 5</h2>
+        <p>Beschreibung zur zweiten Beobachtung.</p>
+      </div>
+    </div>
+    </section>
+
+<p> Folgende Forschungsfragen möchten wir durch unsere Untersuchung beantworten:
+        <p style="margin-top: -1%;"> • Wie gestalten Senior*innen ihren alltäglichen Aktionsraum in der Stadt – und welche 
+          Bedeutung und Barrieren schreiben sie bestimmten Orten zu?
+        <p style="margin-top: -1%;"> • Welche Planungsansätze ergeben sich hieraus?
+        </p>
+    
+    <!-- Mehr Items ... -->
+  </div>
+</section>
+
+  <div class="grid-layout">
+    <div class="map-area">
+      <div id="map"></div>
+    </div>
+
+    <div class="steps-area">
+      
+      <section class="step" data-step="gps">
+        <h2>GPS-Tracking</h2>
+        <p>Dabei trägt man ein kleines Gerät oder nutzt eine Handy-App, die automatisch speichert, 
+          wo man entlanggeht. Später kann man diese Wege auf einer Karte anschauen. 
+          So sieht man genau, wie sich jemand durch ein Viertel oder die Stadt bewegt – 
+          und keine Sorge: Die Daten bleiben anonym und werden vertraulich behandelt.</p>
+      </section>
+      <section class="step" data-step="mental">
+        <h2>Mental Mapping</h2>
+        <p>Dabei malen Sie eine Karte ihre Alltagsumgebung frei auf.
+           Keine Sorge, es geht nicht um Genauigkeit, sondern darum, welche Orte für Sie wichtig sind und
+          wie Sie Ihre Umgebung erleben. Dabei können Sie auf Wege, schöne Plätze oder auch unsichere Ecken hinweisen.</p>
+      </section>
+      <section class="step" data-step="goalong">
+        <h2>Go-Along</h2>
+        <p>Das ist ein Gespräch, bei dem wir Sie bei einem Spaziergang begleiten. 
+          Sie zeigen uns dabei Orte, die Ihnen wichtig sind, und wie Sie dorthin kommen. 
+          Direkt vor Ort erzählen Sie uns, was Sie dort denken, fühlen oder erlebt haben – 
+          und wir hören aufmerksam zu!</p>
+      </section>
+    </div>
+  </div>
+
+ 
+
+
+
+  
+
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="https://unpkg.com/scrollama"></script>
+  <script>
+  const map = L.map('map').setView([51.05, 13.73], 13);
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; OpenStreetMap-Mitwirkende'
+  }).addTo(map);
+
+  map.options.zoomControl = false;
+
+  const steps = document.querySelectorAll('.step');
+  const scrollamaInstance = scrollama();
+
+  scrollamaInstance.setup({
+    step: '.step',
+    offset: 0.5,
+    once: false
+  }).onStepEnter(response => {
+    steps.forEach(step => step.classList.remove('is-active'));
+    response.element.classList.add('is-active');
+    const step = response.element.getAttribute('data-step');
+    updateMap(step);
+  });
+
+  function animateGpsTrack(coords) {
+  let index = 1;
+  const animatedLine = L.polyline([coords[0]], { color: 'blue', weight: 4, dashArray: '5, 5' }).addTo(map);
+  map.flyTo([51.045760169317695, 13.729341861044453], 15.5);
+
+  const interval = setInterval(() => {
+    if (index >= coords.length) {
+      clearInterval(interval);
+      return;
+    }
+    animatedLine.addLatLng(coords[index]);
+    index++;
+  }, 300); // alle 200 ms wird ein neuer Punkt hinzugefügt
+}
+
+function updateMap(step) {
+  // Entferne alle Layer außer Basemap
+  map.eachLayer(layer => {
+    if (layer !== map._layers[Object.keys(map._layers)[0]]) {
+      map.removeLayer(layer);
+    }
+  });
+
+  if (step === 'gps') {
+    const gpsCoords = [
+// Zuhause
+[51.0469084302408, 13.732020545068329],
+[51.0471431128365, 13.731646387257607],
+[51.04705711332994, 13.731112665089976],
+[51.04781133467021, 13.73044843549099],
+[51.04843248305186, 13.729550659249533],
+[51.04925136373137, 13.72882260242331],
+[51.04978286344141, 13.729746350627222],
+[51.05074506464051, 13.729086228999657],
+
+// Cafe
+[51.05114371032353, 13.732794073877288],
+[51.05051555716851, 13.732320001483695],
+[51.04735119686242, 13.733168641959306],
+
+// Sitzmöglichkeit
+[51.048333781264745, 13.732704360791384],
+
+// Zuhause
+[51.0469084302408, 13.732020545068329],
+
+// Bus
+[51.04671283182707, 13.732277773464954],
+[51.04594601179124, 13.729396368062165],
+[51.04210060271414, 13.72143369375634],
+[51.041946669698234, 13.721336858696898],
+
+// Arzt
+[51.04041462472837, 13.723630034718205],
+[51.04176484900158, 13.721568906377117],
+
+// Bus
+[51.04153371850384, 13.721146647896921],
+[51.042438865095725, 13.722482688048308],
+[51.04344948732345, 13.724661638582244],
+[51.045469149111085, 13.729016885344477],
+[51.046077459827885, 13.730293244725889],
+[51.04639062195169, 13.73295426555444],
+
+// Zuhause
+[51.0469084302408, 13.732020545068329],
+[51.04668940873296, 13.732089431237156],
+[51.0469633177902, 13.733839689973623],
+[51.04725806130324, 13.734923933639783],
+[51.04768674930228, 13.736085943539173],
+
+// Einkaufen
+[51.04827509845849, 13.735693979789014],
+[51.047316879183555, 13.736133851122373],
+[51.047337327375224, 13.737424417036683],
+
+// Bus
+[51.04720631900424, 13.737602669767398],
+[51.04706334971386, 13.73483163954568],
+[51.04687628378694, 13.734062979608611],
+[51.046694139605826, 13.732254843808413],
+
+// Zuhause
+[51.0469084302408, 13.732020545068329]
+     
+    ];
+    animateGpsTrack(gpsCoords);
+    const markers = L.layerGroup([
+    
+    L.marker([51.04720631900424, 13.737602669767398]).bindTooltip('🚏🚌', { permanent: true, direction: 'top' }),
+    
+    L.marker([51.04153371850384, 13.721146647896921]).bindTooltip('🚏🚌', { permanent: true, direction: 'top' }),
+    L.marker([51.04671283182707, 13.732277773464954]).bindTooltip('🚏🚌', { permanent: true, direction: 'top' }),
+    L.marker([51.048333781264745, 13.732704360791384]).bindTooltip('🪑', { permanent: true, direction: 'top' }),
+    L.marker([51.04041462472837, 13.723630034718205]).bindTooltip('⚕️', { permanent: true, direction: 'top' }),
+    L.marker([51.05114371032353, 13.732794073877288]).bindTooltip('🍵', { permanent: true, direction: 'top' }),
+    L.marker([51.0469084302408, 13.732020545068329]).bindTooltip('🏠', { permanent: true, direction: 'top' }),
+
+    L.marker([51.04827509845849, 13.735693979789014]).bindTooltip('🛍️', { permanent: true, direction: 'top' })
+  ]);
+  markers.addTo(map);
+
+  } else if (step === 'mental') {
+  const imageBounds = [[51.04541870495503, 13.730225238128797], [51.05500898502621, 13.749673754727135]];
+  const overlay = L.imageOverlay('mental_map_2.png',
+  imageBounds).addTo(map);
+  map.flyTo([51.05006063283995, 13.738903776165074], 15.25);
+  } else if (step === 'goalong') {
+    L.polyline([[51.049,13.737],[51.05,13.739],[51.051,13.74],[51.052,13.742]], {
+      color: 'orange',
+      dashArray: '10, 10'
+    }).addTo(map);
+
+    L.polyline([[51.050434160677824, 13.738012047222302], [51.05094281901102, 13.733929719106632]], {
+  color: 'red',
+  weight: 15,
+  opacity: 0.7
+}).addTo(map);
+
+
+  L.polyline([
+    [51.05094281901102, 13.733929719106632],
+    [51.051067701952974, 13.732475346886037],
+    [51.05050628965627, 13.732175093054762]
+  ], {
+    color: 'gray',
+    weight: 15,
+    opacity: 0.7
+  }).addTo(map);
+
+
+L.polyline([
+    [51.05050628965627, 13.732175093054762],
+    [51.05031647638554, 13.731946593837106],
+    [51.047388190745494, 13.733144302379142]
+  ], {
+    color: 'green',
+    weight: 15,
+    opacity: 0.7
+  }).addTo(map);
+
+
+  const markers = [
+    {
+      coords: [51.04846155142504, 13.732677681743727],
+      text: "„Hier gehe ich gerne lang – viele Bäume, wenig Verkehr.“"
+    },
+    {
+      coords: [51.05102168662133, 13.73258894017491],
+      text: "„Da vorne ist es immer ein bisschen unübersichtlich, aber okay.“"
+    },
+    {
+      coords: [51.05056245659618, 13.736188574110553],
+      text: "„An dieser Straße fühle ich mich oft unsicher, hier sind so viele Autos.“"
+    }
+  ];
+
+  markers.forEach(m =>
+  L.marker(m.coords)
+    .bindTooltip(m.text, { permanent: true, direction: 'right', className: 'go_along-text-farbe' })
+    .addTo(map)
+);
+
+
+
+
+    map.flyTo([51.04996414327286, 13.74031892149131], 16);
+  }
+}
+
+  
+</script>
+
+
+
+</body>
+</html>
